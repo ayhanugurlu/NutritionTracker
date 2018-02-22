@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
@@ -27,7 +28,7 @@ public class UserRole {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	Long id;
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="userRole")
 	private List<User> users;
 	
