@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class WeightMeasurement {
 
@@ -28,6 +30,7 @@ public class WeightMeasurement {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "NUTRITIONIST_ID", nullable = false)
 	User nutritionist;
+
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLIENT_ID", nullable = false)

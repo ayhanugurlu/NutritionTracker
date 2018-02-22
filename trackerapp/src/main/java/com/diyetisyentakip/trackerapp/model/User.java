@@ -1,8 +1,7 @@
 package com.diyetisyentakip.trackerapp.model;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,13 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
@@ -27,13 +26,13 @@ public class User {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	Long id;
 	
-	@JsonBackReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@LazyToOne(value = LazyToOneOption.NO_PROXY)
 	@JoinColumn(name = "USER_ROLE_ID", nullable = false)
 	private UserRole userRole;
 	
-	@JsonBackReference
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COMPANY_ID", nullable = false)
 	@LazyToOne(value = LazyToOneOption.NO_PROXY)
@@ -42,12 +41,13 @@ public class User {
 	 
 	String username;
 	
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="nutritionist")
-	private Set<WeightMeasurement> nutritionists = new HashSet<>();
+	private List<WeightMeasurement> nutritionists = new ArrayList<>();
 	
-	
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="client")
-	private Set<WeightMeasurement> clients = new HashSet<>();
+	private List<WeightMeasurement> clients = new ArrayList<>();
 	
 	
 	

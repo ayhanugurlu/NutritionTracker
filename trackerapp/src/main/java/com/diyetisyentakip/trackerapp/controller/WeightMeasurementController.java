@@ -2,12 +2,15 @@ package com.diyetisyentakip.trackerapp.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diyetisyentakip.trackerapp.model.WeightMeasurement;
@@ -19,9 +22,11 @@ public class WeightMeasurementController {
 	@Autowired
 	private IWeightMeasurementRepository weightMeasurementRepository;
 	
+	@Transactional
 	@RequestMapping(value="weightmeasurement", method = RequestMethod.GET)
-	public List<WeightMeasurement> list(){
-		return weightMeasurementRepository.findAll();
+	public @ResponseBody List<WeightMeasurement> list(){
+		List<WeightMeasurement> result = weightMeasurementRepository.findAll();
+		return result;
 	}
 	
 	@RequestMapping(value="weightmeasurement/{id}", method = RequestMethod.GET)
